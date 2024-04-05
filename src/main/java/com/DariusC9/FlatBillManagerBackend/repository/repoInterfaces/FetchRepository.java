@@ -1,4 +1,4 @@
-package com.DariusC9.FlatBillManagerBackend.repository;
+package com.DariusC9.FlatBillManagerBackend.repository.repoInterfaces;
 
 import java.util.List;
 
