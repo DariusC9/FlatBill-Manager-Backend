@@ -10,6 +10,6 @@ public class TosService {
     private TosRepository tosRepository;
 
     public String getTermsOfService() {
-        return tosRepository.fetchAll().getFirst();
+        return tosRepository.fetchAll().get(0);
     }
 }
