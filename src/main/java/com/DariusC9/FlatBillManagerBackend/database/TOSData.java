@@ -1,10 +1,16 @@
 package com.DariusC9.FlatBillManagerBackend.database;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class TOSData {
-    private String data;
+    private List<String> data;
     public TOSData() {
-        data = "By downloading and using this app, you agree to abide by our terms of service./n" +
+
+        String tos = "By downloading and using this app, you agree to abide by our terms of service./n" +
                 " Enjoy a seamless experience with us!";
+        data = new ArrayList<>(Arrays.asList(tos));
     }
-    public String getData() { return data; }
+    public List<String> getData() { return data; }
 }
