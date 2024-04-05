@@ -1,4 +1,4 @@
-package com.DariusC9.FlatBillManagerBackend.Database;
+package com.DariusC9.FlatBillManagerBackend.database;
 
 public class TOSData {
     private String data;
