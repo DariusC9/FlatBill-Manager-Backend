@@ -20,5 +20,4 @@ public class PrivacyController {
         PrivacyDTO privacyResponse = new PrivacyDTO(privacyText);
         return ResponseEntity.ok(privacyResponse);
     }
-
 }
