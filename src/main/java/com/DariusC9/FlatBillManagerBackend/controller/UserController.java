@@ -1,23 +1,20 @@
 package com.DariusC9.FlatBillManagerBackend.controller;
 import com.DariusC9.FlatBillManagerBackend.controller.DTO.TosDTO;
+import com.DariusC9.FlatBillManagerBackend.domain.model.User;
 import com.DariusC9.FlatBillManagerBackend.service.TosService;
+import com.DariusC9.FlatBillManagerBackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
 public class UserController {
     @Autowired
-    private TosService tosService;
+    private UserService userService;
 
     @PostMapping("/signUp")
-    public ResponseEntity<TosDTO> getTos() {
-        String tos = tosService.getTermsOfService();
-        TosDTO tosResponse = new TosDTO(tos);
-        return ResponseEntity.ok(tosResponse);
+    public void signUpNewUser(@RequestBody User newUser) {
+        userService.saveNewUser(newUser);
     }
 }

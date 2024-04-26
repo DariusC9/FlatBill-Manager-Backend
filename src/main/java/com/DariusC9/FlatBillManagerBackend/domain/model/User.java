@@ -8,8 +8,8 @@ public class User {
     private String password;
 
     public User() {}
-    public User(UUID id, String name, String password) {
-        this.id = id;
+    public User(String name, String password) {
+        this.id = UUID.randomUUID();
         this.name = name;
         this.password = password;
     }
