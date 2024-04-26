@@ -1,8 +1,8 @@
-package com.DariusC9.FlatBillManagerBackend.domain.modelResponse;
+package com.DariusC9.FlatBillManagerBackend.controller.DTO;
 
-public class PrivacyResponse {
+public class PrivacyDTO {
     private String privacyText;
-    public PrivacyResponse(String privacyText) {
+    public PrivacyDTO(String privacyText) {
         this.privacyText = privacyText;
     }
 

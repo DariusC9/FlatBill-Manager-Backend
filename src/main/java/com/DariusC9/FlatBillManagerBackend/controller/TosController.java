@@ -1,6 +1,6 @@
 package com.DariusC9.FlatBillManagerBackend.controller;
 
-import com.DariusC9.FlatBillManagerBackend.domain.modelResponse.TosResponse;
+import com.DariusC9.FlatBillManagerBackend.controller.DTO.TosDTO;
 import com.DariusC9.FlatBillManagerBackend.service.TosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +15,9 @@ public class TosController {
     private TosService tosService;
 
     @GetMapping
-    public ResponseEntity<TosResponse> getTos() {
+    public ResponseEntity<TosDTO> getTos() {
         String tos = tosService.getTermsOfService();
-        TosResponse tosResponse = new TosResponse(tos);
+        TosDTO tosResponse = new TosDTO(tos);
         return ResponseEntity.ok(tosResponse);
     }
 }

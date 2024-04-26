@@ -1,9 +1,7 @@
 package com.DariusC9.FlatBillManagerBackend.controller;
 
-import com.DariusC9.FlatBillManagerBackend.domain.modelResponse.PrivacyResponse;
-import com.DariusC9.FlatBillManagerBackend.domain.modelResponse.TosResponse;
+import com.DariusC9.FlatBillManagerBackend.controller.DTO.PrivacyDTO;
 import com.DariusC9.FlatBillManagerBackend.service.PrivacyService;
-import com.DariusC9.FlatBillManagerBackend.service.TosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +15,9 @@ public class PrivacyController {
     private PrivacyService privacyService;
 
     @GetMapping
-    public ResponseEntity<PrivacyResponse> getTos() {
+    public ResponseEntity<PrivacyDTO> getTos() {
         String privacyText = privacyService.getPrivacyPolicy();
-        PrivacyResponse privacyResponse = new PrivacyResponse(privacyText);
+        PrivacyDTO privacyResponse = new PrivacyDTO(privacyText);
         return ResponseEntity.ok(privacyResponse);
     }
 

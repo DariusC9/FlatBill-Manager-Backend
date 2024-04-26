@@ -1,10 +1,8 @@
-package com.DariusC9.FlatBillManagerBackend.domain.modelResponse;
+package com.DariusC9.FlatBillManagerBackend.controller.DTO;
 
-import java.security.PublicKey;
-
-public class TosResponse {
+public class TosDTO {
     private String tosText;
-    public TosResponse(String tosText) {
+    public TosDTO(String tosText) {
         this.tosText = tosText;
     }
 
