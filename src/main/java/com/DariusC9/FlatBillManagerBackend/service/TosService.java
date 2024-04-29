@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 public class TosService {
     @Autowired
     private TosRepository tosRepository;
-
     public String getTermsOfService() {
         return tosRepository.fetchAll().get(0);
     }
