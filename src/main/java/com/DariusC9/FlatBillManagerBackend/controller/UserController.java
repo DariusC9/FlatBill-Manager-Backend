@@ -4,6 +4,7 @@ import com.DariusC9.FlatBillManagerBackend.controller.DTO.ErrorDTO;
 import com.DariusC9.FlatBillManagerBackend.domain.model.User;
 import com.DariusC9.FlatBillManagerBackend.service.UserService;
 import com.DariusC9.FlatBillManagerBackend.service.errors.EmailNotUniqueException;
+import com.DariusC9.FlatBillManagerBackend.service.errors.UserNotExistException;
 import com.DariusC9.FlatBillManagerBackend.service.errors.UsernameNotUniqueException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,19 @@ public class UserController {
             ErrorDTO error = new ErrorDTO("101",
                     "The email adress is already registered",
                     "The email adress is already registered. Please login or try to retrieve the password");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginUser(@RequestBody User newUser) {
+        try {
+            User user = userService.login(newUser);
+            return ResponseEntity.ok(user);
+        } catch (UserNotExistException ex) {
+            ErrorDTO error = new ErrorDTO("102",
+                    "The user credentials are not matching",
+                    "The email adress or the password you input does not match with any user inside the database. Please try again");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }

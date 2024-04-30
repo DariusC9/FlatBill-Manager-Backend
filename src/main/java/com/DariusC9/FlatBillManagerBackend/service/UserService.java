@@ -3,6 +3,7 @@ package com.DariusC9.FlatBillManagerBackend.service;
 import com.DariusC9.FlatBillManagerBackend.domain.model.User;
 import com.DariusC9.FlatBillManagerBackend.repository.UserRepository;
 import com.DariusC9.FlatBillManagerBackend.service.errors.EmailNotUniqueException;
+import com.DariusC9.FlatBillManagerBackend.service.errors.UserNotExistException;
 import com.DariusC9.FlatBillManagerBackend.service.errors.UsernameNotUniqueException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,16 @@ public class UserService {
         }
         newUser.setId(UUID.randomUUID());
         userRepository.save(newUser);
+    }
+
+    public User login(User user) throws RuntimeException {
+        List<User> userList = userRepository.fetchAll();
+        User userValidated = userValidator.doesUserExist(userList,
+                user.getEmail(),
+                user.getPassword());
+        if (userValidated == null) {
+            throw new UserNotExistException();
+        }
+        return userValidated;
     }
 }
