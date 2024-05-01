@@ -1,10 +1,9 @@
 package com.DariusC9.FlatBillManagerBackend.service.errors;
 
-public class UsernameNotUniqueException extends RuntimeException {
+public class UsernameNotUniqueException extends APIError {
     public UsernameNotUniqueException() {
-        super("Username is not unique.");
-    }
-    public UsernameNotUniqueException(String message) {
-        super(message);
+        super("100",
+                "The user name is already taken",
+                "The user name is already taken. Please use another one.");
     }
 }
