@@ -1,6 +1,6 @@
 package com.DariusC9.FlatBillManagerBackend.service.errors;
 
-public class APIError extends RuntimeException {
+public abstract class APIError extends RuntimeException {
     private String errorCode;
     private String errorTitle;
     private String errorMessage;
