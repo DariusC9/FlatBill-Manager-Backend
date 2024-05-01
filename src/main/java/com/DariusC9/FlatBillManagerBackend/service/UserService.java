@@ -24,7 +24,7 @@ public class UserService {
         if (!isUsernameUnique) {
             throw new UsernameNotUniqueException();
         }
-        boolean isEmailUnique = userValidator.isEmailUnique(userList, newUser.getName());
+        boolean isEmailUnique = userValidator.isEmailUnique(userList, newUser.getEmail());
         if (!isEmailUnique) {
             throw  new EmailNotUniqueException();
         }
