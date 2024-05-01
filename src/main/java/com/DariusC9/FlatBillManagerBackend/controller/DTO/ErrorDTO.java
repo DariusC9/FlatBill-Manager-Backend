@@ -1,5 +1,7 @@
 package com.DariusC9.FlatBillManagerBackend.controller.DTO;
 
+import com.DariusC9.FlatBillManagerBackend.service.errors.APIError;
+
 public class ErrorDTO {
     private String errorCode;
     private String errorTitle;
@@ -7,10 +9,10 @@ public class ErrorDTO {
 
     public ErrorDTO() { }
 
-    public ErrorDTO(String errorCode, String errorTitle, String errorMessage) {
-        this.errorCode = errorCode;
-        this.errorTitle = errorTitle;
-        this.errorMessage = errorMessage;
+    public ErrorDTO(APIError error) {
+        errorCode = error.getErrorCode();
+        errorTitle = error.getErrorTitle();
+        errorMessage = error.getErrorMessage();
     }
 
     public String getErrorCode() {

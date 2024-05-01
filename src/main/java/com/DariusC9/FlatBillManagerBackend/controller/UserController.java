@@ -3,9 +3,7 @@ package com.DariusC9.FlatBillManagerBackend.controller;
 import com.DariusC9.FlatBillManagerBackend.controller.DTO.ErrorDTO;
 import com.DariusC9.FlatBillManagerBackend.domain.model.User;
 import com.DariusC9.FlatBillManagerBackend.service.UserService;
-import com.DariusC9.FlatBillManagerBackend.service.errors.EmailNotUniqueException;
-import com.DariusC9.FlatBillManagerBackend.service.errors.UserNotExistException;
-import com.DariusC9.FlatBillManagerBackend.service.errors.UsernameNotUniqueException;
+import com.DariusC9.FlatBillManagerBackend.service.errors.APIError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +20,8 @@ public class UserController {
         try {
             userService.saveNewUser(newUser);
             return ResponseEntity.status(HttpStatus.CREATED).body(null);
-        } catch (UsernameNotUniqueException ex) {
-            ErrorDTO error = new ErrorDTO("100",
-                    "The user name is already taken",
-                    "The user name is already taken. Please use another one.");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-        } catch (EmailNotUniqueException ex) {
-            ErrorDTO error = new ErrorDTO("101",
-                    "The email adress is already registered",
-                    "The email adress is already registered. Please login or try to retrieve the password");
+        } catch (APIError ex) {
+            ErrorDTO error = new ErrorDTO(ex);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
@@ -40,10 +31,8 @@ public class UserController {
         try {
             User user = userService.login(newUser);
             return ResponseEntity.ok(user);
-        } catch (UserNotExistException ex) {
-            ErrorDTO error = new ErrorDTO("102",
-                    "The user credentials are not matching",
-                    "The email adress or the password you input does not match with any user inside the database. Please try again");
+        } catch (APIError ex) {
+            ErrorDTO error = new ErrorDTO(ex);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
