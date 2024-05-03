@@ -26,9 +26,9 @@ public class UserValidator {
         return true;
     }
 
-    public User doesUserExist(List<User> userList, String email, String password) {
+    public User doesUserExist(List<User> userList, String email) {
         for (User user : userList) {
-            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+            if (user.getEmail().equals(email)) {
                 return user;
             }
         }
