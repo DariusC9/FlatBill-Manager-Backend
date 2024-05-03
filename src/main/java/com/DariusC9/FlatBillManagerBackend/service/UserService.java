@@ -43,12 +43,14 @@ public class UserService {
 
     public User login(User user) throws RuntimeException {
         List<User> userList = userRepository.fetchAll();
-        User userValidated = userValidator.doesUserExist(userList,
-                user.getEmail(),
-                user.getPassword());
-        if (userValidated == null) {
+        User userValidatedByEmail = userValidator.doesUserExist(userList, user.getEmail());
+        if (userValidatedByEmail == null) {
             throw new UserNotExistException();
         }
-        return userValidated;
+        if (passwordEncoder.matches(user.getPassword(), userValidatedByEmail.getPassword())) {
+            return userValidatedByEmail;
+        } else {
+            throw new UserNotExistException();
+        }
     }
 }
