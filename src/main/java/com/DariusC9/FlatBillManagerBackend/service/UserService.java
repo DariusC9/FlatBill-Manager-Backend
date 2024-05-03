@@ -6,6 +6,7 @@ import com.DariusC9.FlatBillManagerBackend.service.errors.EmailNotUniqueExceptio
 import com.DariusC9.FlatBillManagerBackend.service.errors.UserNotExistException;
 import com.DariusC9.FlatBillManagerBackend.service.errors.UsernameNotUniqueException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,17 +18,25 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     UserValidator userValidator;
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
 
     public void saveNewUser(User newUser) throws RuntimeException {
         List<User> userList = userRepository.fetchAll();
+        // check if user name is unique
         boolean isUsernameUnique = userValidator.isUsernameUnique(userList, newUser.getName());
         if (!isUsernameUnique) {
             throw new UsernameNotUniqueException();
         }
+        // check if email is unique
         boolean isEmailUnique = userValidator.isEmailUnique(userList, newUser.getName());
         if (!isEmailUnique) {
             throw  new EmailNotUniqueException();
         }
+        // encrypt password
+        String encriptedPassword = passwordEncoder.encode(newUser.getPassword());
+        newUser.setPassword(encriptedPassword);
+        // set id of the user
         newUser.setId(UUID.randomUUID());
         userRepository.save(newUser);
     }
