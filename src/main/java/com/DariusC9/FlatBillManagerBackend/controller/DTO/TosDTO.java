@@ -1,16 +1,5 @@
 package com.DariusC9.FlatBillManagerBackend.controller.DTO;
 
-public class TosDTO {
-    private String tosText;
-    public TosDTO(String tosText) {
-        this.tosText = tosText;
-    }
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public String getTosText() {
-        return tosText;
-    }
-
-    public void setTosText(String tosText) {
-        this.tosText = tosText;
-    }
-}
+public record TosDTO(@JsonProperty("text") String tosText) { }

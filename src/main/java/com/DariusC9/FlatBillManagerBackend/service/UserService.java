@@ -5,7 +5,6 @@ import com.DariusC9.FlatBillManagerBackend.repository.UserRepository;
 import com.DariusC9.FlatBillManagerBackend.service.errors.EmailNotUniqueException;
 import com.DariusC9.FlatBillManagerBackend.service.errors.UserNotExistException;
 import com.DariusC9.FlatBillManagerBackend.service.errors.UsernameNotUniqueException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +13,15 @@ import java.util.UUID;
 
 @Service
 public class UserService {
-    @Autowired
     UserRepository userRepository;
-    @Autowired
     UserValidator userValidator;
-    @Autowired
     BCryptPasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, UserValidator userValidator, BCryptPasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.userValidator = userValidator;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public void saveNewUser(User newUser) throws RuntimeException {
         List<User> userList = userRepository.fetchAll();
