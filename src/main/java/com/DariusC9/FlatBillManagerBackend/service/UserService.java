@@ -26,18 +26,19 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public void saveNewUser(User newUser) throws RuntimeException {
+    public void saveNewUser(UserDTO newUserDTO) throws RuntimeException {
         List<User> userList = userRepository.fetchAll();
         // check if user name is unique
-        boolean isUsernameUnique = userValidator.isUsernameUnique(userList, newUser.getName());
+        boolean isUsernameUnique = userValidator.isUsernameUnique(userList, newUserDTO.name());
         if (!isUsernameUnique) {
             throw new UsernameNotUniqueException();
         }
         // check if email is unique
-        boolean isEmailUnique = userValidator.isEmailUnique(userList, newUser.getName());
+        boolean isEmailUnique = userValidator.isEmailUnique(userList, newUserDTO.email());
         if (!isEmailUnique) {
             throw  new EmailNotUniqueException();
         }
+        User newUser = mappToUser(newUserDTO);
         // encrypt password
         String encriptedPassword = passwordEncoder.encode(newUser.getPassword());
         newUser.setPassword(encriptedPassword);

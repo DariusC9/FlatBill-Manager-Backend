@@ -20,7 +20,7 @@ public class UserController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<?> signUpNewUser(@RequestBody User newUser) {
+    public ResponseEntity<?> signUpNewUser(@RequestBody UserDTO newUser) {
         try {
             userService.saveNewUser(newUser);
             return ResponseEntity.status(HttpStatus.CREATED).body(null);
