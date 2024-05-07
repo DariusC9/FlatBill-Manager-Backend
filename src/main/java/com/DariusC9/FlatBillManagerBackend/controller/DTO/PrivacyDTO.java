@@ -1,3 +1,5 @@
 package com.DariusC9.FlatBillManagerBackend.controller.DTO;
 
-public record PrivacyDTO(String privacyText) { }
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record PrivacyDTO(@JsonProperty("text") String privacyText) { }
