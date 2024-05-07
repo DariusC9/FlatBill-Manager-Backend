@@ -1,5 +1,6 @@
 package com.DariusC9.FlatBillManagerBackend.service;
 
+import com.DariusC9.FlatBillManagerBackend.controller.DTO.UserDTO;
 import com.DariusC9.FlatBillManagerBackend.domain.model.User;
 import com.DariusC9.FlatBillManagerBackend.repository.UserRepository;
 import com.DariusC9.FlatBillManagerBackend.service.errors.EmailNotUniqueException;
@@ -16,11 +17,13 @@ public class UserService {
     UserRepository userRepository;
     UserValidator userValidator;
     BCryptPasswordEncoder passwordEncoder;
+    UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, UserValidator userValidator, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, UserValidator userValidator, BCryptPasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userValidator = userValidator;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     public void saveNewUser(User newUser) throws RuntimeException {
@@ -43,16 +46,25 @@ public class UserService {
         userRepository.save(newUser);
     }
 
-    public User login(User user) throws RuntimeException {
+    public UserDTO login(UserDTO userDTO) throws RuntimeException {
         List<User> userList = userRepository.fetchAll();
+        User user = mappToUser(userDTO);
         User userValidatedByEmail = userValidator.doesUserExist(userList, user.getEmail());
         if (userValidatedByEmail == null) {
             throw new UserNotExistException();
         }
         if (passwordEncoder.matches(user.getPassword(), userValidatedByEmail.getPassword())) {
-            return userValidatedByEmail;
+            return mappToUserDTO(userValidatedByEmail);
         } else {
             throw new UserNotExistException();
         }
+    }
+
+    private User mappToUser(UserDTO userDTO) {
+        return userMapper.mappToUser(userDTO);
+    }
+
+    private UserDTO mappToUserDTO(User user) {
+        return userMapper.mappToUserDTO(user);
     }
 }

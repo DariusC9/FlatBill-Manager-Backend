@@ -1,6 +1,7 @@
 package com.DariusC9.FlatBillManagerBackend.controller;
 
 import com.DariusC9.FlatBillManagerBackend.controller.DTO.ErrorDTO;
+import com.DariusC9.FlatBillManagerBackend.controller.DTO.UserDTO;
 import com.DariusC9.FlatBillManagerBackend.domain.model.User;
 import com.DariusC9.FlatBillManagerBackend.service.UserService;
 import com.DariusC9.FlatBillManagerBackend.service.errors.APIError;
@@ -30,9 +31,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody User newUser) {
+    public ResponseEntity<?> loginUser(@RequestBody UserDTO newUser) {
         try {
-            User user = userService.login(newUser);
+            UserDTO user = userService.login(newUser);
             return ResponseEntity.ok(user);
         } catch (APIError ex) {
             ErrorDTO error = new ErrorDTO(ex);
