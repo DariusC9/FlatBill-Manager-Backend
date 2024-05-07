@@ -9,7 +9,6 @@ import java.util.UUID;
 @Component
 public class TosRepository implements FetchRepository<String> {
     private TOSData data;
-
     public TosRepository() {
         data = new TOSData();
     }

@@ -7,7 +7,6 @@ import java.util.List;
 
 @Component
 public class UserValidator {
-
     public boolean isUsernameUnique(List<User> userList, String userName) {
         for (User user: userList) {
             if (user.getName().equals(userName)) {
