@@ -4,7 +4,6 @@ import com.DariusC9.FlatBillManagerBackend.controller.DTO.ErrorDTO;
 import com.DariusC9.FlatBillManagerBackend.domain.model.User;
 import com.DariusC9.FlatBillManagerBackend.service.UserService;
 import com.DariusC9.FlatBillManagerBackend.service.errors.APIError;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 public class UserController {
-    @Autowired
+
     private UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/signUp")
     public ResponseEntity<?> signUpNewUser(@RequestBody User newUser) {
